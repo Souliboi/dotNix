@@ -59,7 +59,6 @@
       neovim
       feh
       picom
-      neovim
       wezterm
       polybar
       arandr
