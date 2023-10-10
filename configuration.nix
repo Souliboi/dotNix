@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
 { config, lib, pkgs, ... }:
 
 {
@@ -10,21 +6,31 @@
       ./hardware-configuration.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.hostName = "NixVM";
+  # Grub
+  boot.loader = {
+    efi.canTouchEfiVariables = true;
+    grub = {
+      enable = true;
+      efiSupport = true;
+      device = "nodev";
+      configurationLimit = 10;
+      gfxmodeEfi = "1920x1080";
+    };
+  };
 
   # Network
-  networking.networkmanager.enable = true;  
+  networking = {
+    hostName = "NixOS";
+    networkmanager.enable = true;
+    firewall = {
+      enable = true;
+      allowPing = false;
+    };
+  };
 
-  # Set your time zone.
+  # Time and Locale
   time.timeZone = "Europe/Berlin";
-
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_US.UTF-8";
     LC_INDENTIFICATION = "en_US.UTF-8";
@@ -37,41 +43,44 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Configure keymap
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "altgr-intl";
-  };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
   # Enable unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # User 
   users.users.soul = {
     description = "Soul";
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "docker" "networkmanager" "wheel" ];
     packages = with pkgs; [
+      # Packages I deem to be minimum, yes that includes neofetch
       neofetch
       neovim
-      feh
-      picom
       wezterm
-      polybar
-      arandr
-      rofi
-      pavucontrol
-      xfce.thunar
-      xfce.thunar-volman
-      xfce.thunar-archive-plugin
-      xfce.thunar-media-tags-plugin
       btop
       firefox
       discord
+      xclip
+      fwupd-efi
+      throttled
+      # Helpful additions to LeftWM
+      polybarFull
+      picom
+      dunst
+      feh
+      rofi
+      pavucontrol
+      pcmanfm
+      gvfs
       flameshot
+      xcolor
+      # Theming
+      materia-theme
+      qogir-icon-theme
+      lxappearance
+      # Java PLEASE
+      jdk17
+      # For stress testing
+      # mprime
     ];
   };
 
@@ -89,15 +98,12 @@
     wget
   ];
 
-  # Fonts
-  fonts.fonts = with pkgs; [
-    noto-fonts
-    font-awesome
-  ];
-
-  # JetBrainsMono Nerd please
+  # Fonts with JetBrainsMono Nerd please
   fonts.packages = with pkgs; [
+    liberation_ttf
+    font-awesome
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    twitter-color-emoji
   ];
 
   # Some programs
@@ -106,8 +112,11 @@
   # LeftWM
   services.xserver = {
     enable = true;
+    libinput.enable = true;
     windowManager.leftwm.enable = true;
     displayManager.lightdm.enable = true;
+    layout = "us";
+    xkbVariant = "altgr-intl";
   };
 
   # Enable Pipewire
@@ -130,35 +139,32 @@
 
   # List services that you want to enable:
 
+  # Docker
+  virtualisation.docker = {
+    enable = true;
+    package = pkgs.docker;
+  };
+
+  # Rofi Greenclip
+  services.greenclip = {
+    enable = true;
+    package = pkgs.haskellPackages.greenclip;
+  };
+
+  # Throttled
+  #services.throttled.enable = true;
+
   # Enable Bluetooth
   #hardware.bluetooth.enable = true;
   #services.blueman.enable = true;
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
   # Enable CUPS to print documents.
   # services.printing.enable = true;
-
-  # Firewall
-  networking.firewall.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
 
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It's perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "23.11";
 
 }
-
