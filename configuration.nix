@@ -77,10 +77,18 @@
       materia-theme
       qogir-icon-theme
       lxappearance
+      # LSP & Neovim
+      lua-language-server
+      nil
+      gopls
+      ripgrep
       # Java PLEASE
       jdk17
       # For stress testing
       # mprime
+      # FTB App Shenanigans (hopefully writing a package for it because this sucks)
+      distrobox
+      xorg.xhost
     ];
   };
 
@@ -90,12 +98,13 @@
 
   # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [
+    nushell
+    wget
     git
     gcc_multi
     rustup
-    nushell
+    python3
     go
-    wget
   ];
 
   # Fonts with JetBrainsMono Nerd please
@@ -107,7 +116,10 @@
   ];
 
   # Some programs
-  programs.nm-applet.enable = true;
+  programs = { 
+    nm-applet.enable = true;
+    starship.enable = true;
+  };
 
   # LeftWM
   services.xserver = {
@@ -144,6 +156,15 @@
     enable = true;
     package = pkgs.docker;
   };
+
+  # XDG Portal
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
+
+  # Flatpak for Distrobox
+  services.flatpak.enable = true;
 
   # Rofi Greenclip
   services.greenclip = {
