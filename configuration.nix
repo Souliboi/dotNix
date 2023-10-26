@@ -50,7 +50,7 @@
   users.users.soul = {
     description = "Soul";
     isNormalUser = true;
-    extraGroups = [ "docker" "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       # Packages I deem to be minimum, yes that includes neofetch
       neofetch
@@ -60,8 +60,8 @@
       firefox
       discord
       xclip
-      fwupd-efi
-      throttled
+      # fwupd-efi for Notebook:tm:
+      # throttled for Notebook:tm:
       # Helpful additions to LeftWM
       polybarFull
       picom
@@ -86,9 +86,6 @@
       jdk17
       # For stress testing
       # mprime
-      # FTB App Shenanigans (hopefully writing a package for it because this sucks)
-      distrobox
-      xorg.xhost
     ];
   };
 
@@ -151,20 +148,11 @@
 
   # List services that you want to enable:
 
-  # Docker
-  virtualisation.docker = {
-    enable = true;
-    package = pkgs.docker;
-  };
-
   # XDG Portal
   xdg.portal = {
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
-
-  # Flatpak for Distrobox
-  services.flatpak.enable = true;
 
   # Rofi Greenclip
   services.greenclip = {
