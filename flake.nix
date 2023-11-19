@@ -28,8 +28,8 @@
     lib = nixpkgs.lib;
   in{
       nixosConfigurations = {
-        NixOS = lib.nixosSystem {
-	  inherit system pkgs;
+        NixBook = lib.nixosSystem {
+	  inherit pkgs;
 
 	  modules = [
 	    ./configuration.nix
