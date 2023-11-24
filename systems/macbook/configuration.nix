@@ -3,8 +3,8 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./cpu-freq.nix
-    ./tmux.nix
+    ../../configs/cpu-freq.nix
+    ./configs/tmux.nix
   ];
   # Optimise and clean up
   nix.optimise.automatic = true;
