@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-    servics.xserver.xautolock = {
+    services.xserver.xautolock = {
             enable = true;
             time = 10;
             killer = "/run/current-system/systemd/bin/systemctl suspend";
