@@ -4,8 +4,8 @@
   imports = [
     ./hardware-configuration.nix
     ../../configs/cpu-freq.nix
-    ../../leftwm.nix
-    ../../packages.nix
+    ../../configs/leftwm.nix
+    ../../configs/packages.nix
     ./configs/tmux.nix
   ];
   # Optimise and clean up
