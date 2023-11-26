@@ -7,6 +7,7 @@
     ../../configs/leftwm.nix
     ../../configs/packages.nix
     ./configs/tmux.nix
+    ./configs/lock.nix
   ];
   # Optimise and clean up
   nix.optimise.automatic = true;
