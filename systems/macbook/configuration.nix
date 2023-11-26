@@ -4,6 +4,8 @@
   imports = [
     ./hardware-configuration.nix
     ../../configs/cpu-freq.nix
+    ../../leftwm.nix
+    ../../packages.nix
     ./configs/tmux.nix
   ];
   # Optimise and clean up
@@ -13,6 +15,7 @@
     dates = "daily";
     options = "-d --delete-older-than 5d";
   };
+  
 
   # Grub & boot configuration
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
@@ -87,6 +90,7 @@
       xclip
       libreoffice-fresh
       inkscape
+      starship
       # fwupd-efi for Notebook:tm:
       # throttled for Notebook:tm:
       # Helpful additions to LeftWM
@@ -238,6 +242,9 @@
     nssmdns = true;
     openFirewall = true;
   };
+
+  # Acpilight
+  hardware.acpilight.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
