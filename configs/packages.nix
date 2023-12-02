@@ -38,6 +38,8 @@
             # Codeberg & GitHub
             codeberg-cli
             gh
+            # lock
+            i3lock
         ];
     };
 }
