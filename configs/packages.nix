@@ -10,11 +10,15 @@
             neofetch
             wezterm
             alacritty
+            zellij
             btop
             firefox
-            discord
             libreoffice-fresh
             starship
+            (discord.override {
+                withOpenASAR = true;
+                withVencord = true;
+            })
             # LeftWM Packages
             polybarFull
             picom

@@ -6,7 +6,6 @@
     ../../configs/cpu-freq.nix
     ../../configs/leftwm.nix
     ../../configs/packages.nix
-    ./configs/tmux.nix
     ./configs/lock.nix
   ];
   # Optimise and clean up
@@ -40,7 +39,7 @@
       gfxmodeEfi = "1680x1050";
       extraConfig = ''
         terminal_input --append console
-	terminal_output --append console
+    	terminal_output --append console
       '';
     };
   };
@@ -74,56 +73,6 @@
   # Enable unfree packages
   # nixpkgs.config.allowUnfree = true;
 
-  # User 
-  users.users.soul = {
-    description = "Soul";
-    isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      # Packages I deem to be minimum, yes that includes neofetch
-      neofetch
-      neovim
-      wezterm
-      alacritty
-      btop
-      firefox
-      discord
-      xclip
-      libreoffice-fresh
-      inkscape
-      starship
-      # fwupd-efi for Notebook:tm:
-      # throttled for Notebook:tm:
-      # Helpful additions to LeftWM
-      polybarFull
-      picom
-      dunst
-      feh
-      rofi
-      pavucontrol
-      pcmanfm
-      gvfs
-      flameshot
-      xcolor
-      # Theming
-      materia-theme
-      qogir-icon-theme
-      lxappearance
-      # LSP & Neovim
-      lua-language-server
-      nil
-      gopls
-      ripgrep
-      # Java PLEASE
-      jdk17
-      # For stress testing
-      # mprime
-      # Version Control
-      codeberg-cli
-      gh
-    ];
-  };
-
   # Nushell
   users.defaultUserShell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];
@@ -154,22 +103,6 @@
     nm-applet.enable = true;
     zsh.enable = true;
     starship.enable = true;
-  };
-
-  # LeftWM & i3
-  services.xserver = {
-    enable = true;
-    libinput.enable = true;
-    windowManager = {
-      leftwm.enable = true;
-      i3 = {
-        enable = true;
-	extraPackages = [];
-      };
-    };
-    displayManager.lightdm.enable = true;
-    layout = "us";
-    xkbVariant = "altgr-intl";
   };
 
   # Enable Pipewire
