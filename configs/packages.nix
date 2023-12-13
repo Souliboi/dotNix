@@ -44,6 +44,7 @@
             gh
             # Xfce4
             xfce.xfce4-notifyd
+            xfce.xfce4-pulseaudio-plugin
         ];
     };
 }
