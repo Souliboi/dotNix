@@ -19,14 +19,14 @@
                 withOpenASAR = true;
                 withVencord = true;
             })
+            eza
+            vscode-fhs
             # LeftWM Packages
             polybarFull
             picom
-            dunst
             feh
             rofi
             pavucontrol
-            pcmanfm
             gvfs
             flameshot
             xcolor
@@ -42,8 +42,8 @@
             # Codeberg & GitHub
             codeberg-cli
             gh
-            # lock
-            i3lock
+            # Xfce4
+            xfce.xfce4-notifyd
         ];
     };
 }

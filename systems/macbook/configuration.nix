@@ -1,13 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-    ../../configs/cpu-freq.nix
-    ../../configs/leftwm.nix
-    ../../configs/packages.nix
-    ./configs/lock.nix
-  ];
   # Optimise and clean up
   nix.optimise.automatic = true;
   nix.gc = {
@@ -73,7 +66,7 @@
   # Enable unfree packages
   # nixpkgs.config.allowUnfree = true;
 
-  # Nushell
+  # Zsh 
   users.defaultUserShell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];
 
@@ -102,7 +95,6 @@
   programs = { 
     nm-applet.enable = true;
     zsh.enable = true;
-    starship.enable = true;
   };
 
   # Enable Pipewire

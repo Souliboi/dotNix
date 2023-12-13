@@ -1,9 +1,8 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 {
   imports = [
-  ./systems/macbook/configuration.nix
-  ./systems/macbook/hardware-configuration.nix
-  ./configs/starship.nix
+    ./systems/macbook/default.nix
+    ./configs/default.nix
   ];
 }
